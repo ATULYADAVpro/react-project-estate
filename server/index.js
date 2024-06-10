@@ -1,11 +1,14 @@
 import express from "express"
+import connectDB from "./utils/DB/connectDB.js";
+import { PORT } from "./configs/index.js";
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 app.get("/",(req,res)=>{
     res.send("working")
 })
 
-app.listen(PORT,()=>{
-    console.log(`Server start at http://localhost:${PORT}`)
-})
+connectDB().then(()=>{
+    app.listen(PORT,()=>{
+        console.log(`Server start at http://localhost:${PORT}`)
+    })
+}).catch(err => console.log(err))
