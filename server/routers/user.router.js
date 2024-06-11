@@ -4,6 +4,7 @@ const authRoutes = Router();
 
 authRoutes.post("/signup",authController.signUp)
 authRoutes.post("/signin",authController.signIn)
+authRoutes.post("/google",authController.google)
 
 
 
