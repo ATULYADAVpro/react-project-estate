@@ -5,6 +5,7 @@ import authRoutes from "./routers/auth.router.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import userRoutes from "./routers/user.router.js";
 import cookieParser from "cookie-parser";
+import listingRoutes from "./routers/listingRouter.js";
 const app = express();
 
 
@@ -15,6 +16,7 @@ app.use(cookieParser())
 
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
+app.use('/api/listing', listingRoutes)
 
 
 app.use(errorHandler)
