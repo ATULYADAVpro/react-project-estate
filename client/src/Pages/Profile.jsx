@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage"
 import { app } from "../firebase"
 import { updateUserFailure, updateUserSuccess, updateUserStart, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserFailure, signOutUserSuccess, signOutUserStart } from "../redux/user/userSlice"
+import { Link } from "react-router-dom"
 
 export default function Profile() {
   // =============== State Here ==============
@@ -125,6 +126,10 @@ export default function Profile() {
         <input type="text" onChange={handleChange} defaultValue={currentUser.password} id="password" placeholder="password" className="border p-3 rounded-lg" />
 
         <button disabled={loading} className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80">{loading ? "Loading..." : "Upadte"}</button>
+
+        <Link className="bg-green-700 text-white p-2 rounded-lg uppercase text-center hover:opacity-95" to={'/create-listing'}> Create Listing
+
+        </Link>
 
       </form>
       <div className="flex justify-between mt-5">
