@@ -7,5 +7,6 @@ userController
 
 userRoutes.get("/test",userController.test)
 userRoutes.post("/update/:id",verifyToken,userController.updateUser)
+userRoutes.delete("/delete/:id",verifyToken,userController.deleteUser)
 
 export default userRoutes;
