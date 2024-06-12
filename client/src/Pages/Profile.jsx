@@ -5,6 +5,7 @@ import { app } from "../firebase"
 import { updateUserFailure, updateUserSuccess, updateUserStart } from "../redux/user/userSlice"
 
 export default function Profile() {
+  // =============== State Here ==============
   const { currentUser, loading, error } = useSelector(state => state.user)
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined);
@@ -13,7 +14,7 @@ export default function Profile() {
   const [formData, setFormData] = useState({})
   const dispatch = useDispatch();
   const [updateSuccess, setUpdateSuccess] = useState(false)
-
+  // =============== Fun and log ==========
 
   useEffect(() => {
     if (file) {
@@ -89,7 +90,7 @@ export default function Profile() {
         <input type="text" onChange={handleChange} defaultValue={currentUser.password} id="password" placeholder="password" className="border p-3 rounded-lg" />
 
         <button disabled={loading} className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80">{loading ? "Loading..." : "Upadte"}</button>
-        
+
       </form>
       <div className="flex justify-between mt-5">
         <span className="text-red-700 cursor-pointer ">Delete account</span>
