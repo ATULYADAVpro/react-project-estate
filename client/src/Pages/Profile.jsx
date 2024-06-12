@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage"
 import { app } from "../firebase"
-import { updateUserFailure, updateUserSuccess, updateUserStart, deleteUserFailure, deleteUserStart, deleteUserSuccess } from "../redux/user/userSlice"
+import { updateUserFailure, updateUserSuccess, updateUserStart, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserFailure, signOutUserSuccess, signOutUserStart } from "../redux/user/userSlice"
 
 export default function Profile() {
   // =============== State Here ==============
@@ -77,7 +77,7 @@ export default function Profile() {
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart())
-      const res = await fetch(`/api/user/delete/${currentUser._id}`,{
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
         method: 'DELETE',
       })
 
@@ -91,6 +91,21 @@ export default function Profile() {
 
     } catch (error) {
       dispatch(deleteUserFailure(error.message))
+    }
+  }
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart())
+      const res = await fetch(`/api/auth/signout`)
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        return;
+      }
+      dispatch(signOutUserSuccess(data));
+    } catch (error) {
+      dispatch(signOutUserFailure(error.message))
     }
   }
 
@@ -114,7 +129,7 @@ export default function Profile() {
       </form>
       <div className="flex justify-between mt-5">
         <span onClick={handleDeleteUser} className="text-red-700 cursor-pointer ">Delete account</span>
-        <span className="text-red-700 cursor-pointer ">Sign Out</span>
+        <span onClick={handleSignOut} className="text-red-700 cursor-pointer ">Sign Out</span>
       </div>
       <p className="text-red-700 mt-5">{error ? error : ""}</p>
       <p className="text-green-700 mt-5">{updateSuccess ? "Update successfull! " : ""}</p>
