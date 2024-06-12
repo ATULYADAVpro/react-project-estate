@@ -1,11 +1,11 @@
 import { Router } from "express"
-import authController from "../controllers/auth/authController.js";
-const authRoutes = Router();
-
-authRoutes.post("/signup",authController.signUp)
-authRoutes.post("/signin",authController.signIn)
-authRoutes.post("/google",authController.google)
+import userController from "../controllers/userController.js";
+import { verifyToken } from "../middlewares/verifyUser.js";
+const userRoutes = Router();
+userController
 
 
+userRoutes.get("/test",userController.test)
+userRoutes.post("/update/:id",verifyToken,userController.updateUser)
 
-export default authRoutes;
+export default userRoutes;
