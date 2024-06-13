@@ -1,3 +1,4 @@
+import Listing from "../models/listing.model.js";
 import User from "../models/user.model.js";
 import CustomErrorHandler from "../utils/CustomErrorHandler.js";
 import bcryptjs from "bcryptjs";
@@ -24,7 +25,7 @@ const userController = {
                 }
             }, { new: true })
 
-            const {password, ...rest} = updatedUser._doc
+            const { password, ...rest } = updatedUser._doc
 
             res.status(200).json(rest)
 
@@ -33,7 +34,7 @@ const userController = {
         }
     },
 
-    async deleteUser(req,res,next){
+    async deleteUser(req, res, next) {
         if (req.user.id !== req.params.id) { return next(CustomErrorHandler.unAuthorized()) }
         try {
             console.log(req.params.id)
@@ -42,6 +43,18 @@ const userController = {
             res.status(200).json('User has been deleted!')
         } catch (error) {
             return next(error)
+        }
+    },
+    async getUserListing(req, res, next) {
+        if (req.user.id === req.params.id) {
+            try {
+                const listing = await Listing.find({ userRef: req.params.id })
+                res.status(200).json(listing)
+            } catch (error) {
+                next(error)
+            }
+        } else {
+            return next(CustomErrorHandler.unAuthorized())
         }
     }
 
