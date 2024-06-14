@@ -6,5 +6,7 @@ const listingRoutes = Router();
 
 listingRoutes.get("/test",listingController.test)
 listingRoutes.post("/create",verifyToken,listingController.createListing)
+listingRoutes.delete("/delete/:id",verifyToken,listingController.deleteListing)
+listingRoutes.post("/update/:id",verifyToken,listingController.updateListing)
 
 export default listingRoutes
