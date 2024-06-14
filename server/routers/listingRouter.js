@@ -8,5 +8,6 @@ listingRoutes.get("/test",listingController.test)
 listingRoutes.post("/create",verifyToken,listingController.createListing)
 listingRoutes.delete("/delete/:id",verifyToken,listingController.deleteListing)
 listingRoutes.post("/update/:id",verifyToken,listingController.updateListing)
+listingRoutes.get("/get/:id",listingController.getListing)
 
 export default listingRoutes

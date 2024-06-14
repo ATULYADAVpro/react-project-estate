@@ -51,6 +51,17 @@ const listingController = {
         } catch (error) {
             return next(error)
         }
+    },
+
+    async getListing(req,res,next){
+        try {
+            const listing = await Listing.findById(req.params.id)
+            if(!listing){return next(CustomErrorHandler.notFound("not found"))}
+             res.status(200).json(listing)
+
+        } catch (error) {
+            return next(error)
+        }
     }
 
 
